@@ -1,7 +1,7 @@
 import os
 import uuid
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple,Union
 import cv2
 import numpy as np
 
@@ -28,7 +28,16 @@ def crop_persone (frame :np.ndarray,bbox:list[int] | Tuple[int,int,int,int])->np
     return crop
 
 def save_crop_snapshot(crop:np.ndarray,base_dir:Path,persone_idx:int)->str:
-    base_dir.mkdir(parants=True,exist_ok=True)
-    filename=f"persone_{persone_idx}_{uuid.uuid4().hex[:8]}.jpg"
-    filepath=base_dir / filename
-    return str(filename)
+    base_dir_str = str(base_dir)
+    os.makedirs(base_dir_str, exist_ok=True)  # Folder ensure karega
+
+    filename = f"person_{persone_idx}_{uuid.uuid4().hex[:6]}.jpg"
+    filepath = os.path.join(base_dir_str, filename)
+
+    success = cv2.imwrite(filepath, crop)
+    if not success:
+        print(f"[Error] Failed to write image crop at: {filepath}")
+        return ""
+
+    print(f"[Snapshot Saved] -> {filepath}")
+    return filepath
