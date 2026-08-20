@@ -72,10 +72,10 @@ def main():
 
     #  ROI
     
-    roi_x1=int(frame_w*0.10)
-    roi_y1=int(frame_h*0.15)
-    roi_x2=int(frame_w*0.90)
-    roi_y2=int(frame_h*0.85)
+    roi_x1=int(frame_w*0.15)
+    roi_y1=int(frame_h*0.10)
+    roi_x2=int(frame_w*0.85)
+    roi_y2=int(frame_h*0.90)
     ROI_ZONE=(roi_x1,roi_y1,roi_x2,roi_y2)
 
     # cropped_tracks = set()
